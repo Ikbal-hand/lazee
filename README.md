@@ -365,35 +365,6 @@ Built with ❤️ by <b>Lazee Team</b>
 
 ---
 
-## 🧑‍🤝‍🧑 Cara Kerja Tim Menggunakan GitHub Issues
-
-### ❗ Aturan Penting
-
-> **Setiap Issue WAJIB menyebutkan lokasi file yang harus dibuat.**
-> PR akan ditolak jika file tidak sesuai struktur.
-
----
-
-## 🧾 TEMPLATE GITHUB ISSUE (WAJIB DIPAKAI)
-
-Gunakan template ini saat membuat Issue baru.
-
-```markdown
-## 🎯 Scope Tugas
-Jelaskan secara singkat apa yang harus dikerjakan.
-
-## 📁 Lokasi File (WAJIB)
-Tuliskan folder & file yang harus dibuat atau diubah.
-
-## 🚫 Batasan
-Apa yang TIDAK boleh dilakukan di Issue ini.
-
-## ✅ Definition of Done
-Checklist tanda Issue selesai.
-```
-
----
-
 ## 🗺️ Mapping Issue → Lokasi File
 
 | Jenis Issue    | Folder               | Contoh File                 |
@@ -409,45 +380,7 @@ Checklist tanda Issue selesai.
 
 ---
 
-📌 **Contoh Issue UI (Benar):**
 
-```markdown
-## 🎯 Scope Tugas
-Membuat kartu ringkasan produktivitas.
-
-## 📁 Lokasi File
-ui/components/ProductivityCircleCard.kt
-
-## 🚫 Batasan
-- Tidak boleh akses Firebase
-- Data via parameter
-
-## ✅ Definition of Done
-- UI tampil
-- Preview tersedia
-```
-
----
-
-📌 **Contoh Issue Logic (Benar):**
-
-```markdown
-## 🎯 Scope Tugas
-Membuat Auth Repository.
-
-## 📁 Lokasi File
-domain/repository/AuthRepository.kt
-data/repository/AuthRepositoryImpl.kt
-
-## 🚫 Batasan
-- UI tidak disentuh
-
-## ✅ Definition of Done
-- Login berhasil
-- Error handling
-```
-
----
 
 (WAJIB DIBACA PEMULA)
 
