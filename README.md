@@ -7,163 +7,253 @@
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge)
 
-**Lazee Tracker** adalah aplikasi produktivitas modern berbasis *gamification* untuk memantau tugas harian dan tingkat "kemalasan" pengguna.
-Aplikasi ini dibangun menggunakan **Android Native (Kotlin)** dengan arsitektur yang bersih, scalable, dan reaktif.
+---
+
+## 📱 Tentang Project
+
+**Lazee Tracker** adalah aplikasi Android berbasis *gamification* yang membantu pengguna mengelola tugas harian sekaligus memantau tingkat produktivitas (dan kemalasan 😄).
+
+Project ini **dibuat untuk tim pemula**, sehingga:
+
+* Struktur kode dibuat **jelas dan konsisten**
+* Setiap layer punya tanggung jawab masing-masing
+* Mudah dipelajari meskipun baru pertama kali Android Native
+
+> 🎯 **Tujuan utama project ini:**
+>
+> * Belajar Android Native modern
+> * Memahami arsitektur MVVM + Clean Architecture
+> * Terbiasa kerja tim menggunakan Git & GitHub
 
 ---
 
 ## ✨ Fitur Utama
 
-* **Google Sign-In** — Login cepat dan aman tanpa password
-* **Laziness Meter** — Visualisasi tingkat produktivitas harian
-* **Kanban Board** — Manajemen tugas *drag-and-drop* (To Do, In Progress, Done)
-* **Weekly Analytics** — Grafik mingguan dengan indikator *Zona Malas*
-* **Cloud Sync** — Sinkronisasi real-time antar perangkat (Firestore)
-* **Dark Mode** — Tampilan modern yang nyaman di mata
+* **Google Sign-In**
+  Login menggunakan akun Google (tanpa password)
+
+* **Laziness Meter**
+  Indikator visual untuk melihat seberapa produktif pengguna setiap hari
+
+* **Kanban Board**
+  Manajemen tugas dengan 3 kolom:
+
+  * To Do
+  * In Progress
+  * Done
+
+* **Weekly Analytics**
+  Grafik produktivitas mingguan dengan batas *Zona Malas*
+
+* **Cloud Sync**
+  Data otomatis tersimpan di Firebase dan bisa dibuka di device lain
+
+* **Dark Mode**
+  Tema gelap untuk kenyamanan mata
 
 ---
 
-## 🛠 Tech Stack & Libraries
+## 🧠 Tech Stack (Penjelasan untuk Pemula)
 
-Project ini menggunakan standar pengembangan Android modern (2025):
-
-| Kategori                 | Teknologi / Library         |
-| ------------------------ | --------------------------- |
-| **Language**             | Kotlin                      |
-| **UI Framework**         | Jetpack Compose (Material3) |
-| **Architecture**         | MVVM + Clean Architecture   |
-| **Dependency Injection** | Hilt (Dagger)               |
-| **Async / Threading**    | Coroutines & Kotlin Flow    |
-| **Backend**              | Firebase Auth & Firestore   |
-| **Navigation**           | Jetpack Navigation Compose  |
-| **Image Loading**        | Coil                        |
-| **Charts**               | Vico / MPAndroidChart       |
+| Teknologi              | Digunakan untuk                       |
+| ---------------------- | ------------------------------------- |
+| **Kotlin**             | Bahasa pemrograman utama Android      |
+| **Jetpack Compose**    | Membuat UI tanpa XML                  |
+| **Material3**          | Standar desain UI Android terbaru     |
+| **MVVM**               | Memisahkan UI, Logic, dan Data        |
+| **Clean Architecture** | Struktur project agar rapi & scalable |
+| **Hilt**               | Mengelola dependency otomatis         |
+| **Coroutines**         | Menjalankan proses async              |
+| **StateFlow**          | Mengelola state UI                    |
+| **Firebase Auth**      | Login Google                          |
+| **Firestore**          | Database cloud                        |
 
 ---
 
-## 📂 Struktur Project
+## 🏗 Arsitektur Project (Wajib Dipahami)
 
-Project ini menerapkan **Simplified Clean Architecture**.
-Mohon patuhi struktur berikut saat menambahkan file baru:
+Project ini **TIDAK BOLEH** ditulis asal-asalan.
+
+### Alur Data Sederhana
+
+```text
+UI (Compose)
+   ↓
+ViewModel
+   ↓
+UseCase / Repository
+   ↓
+Firebase (Auth / Firestore)
+```
+
+❌ UI tidak boleh langsung akses Firebase
+❌ ViewModel tidak boleh mengandung kode UI
+
+---
+
+## 📂 Struktur Folder (Detail)
 
 ```text
 com.lazee.tracker
-├── data/
-│   ├── model/
-│   ├── remote/
-│   └── repository/
 │
-├── di/
+├── data/                  # Mengambil & menyimpan data
+│   ├── model/             # Model dari Firebase (DTO)
+│   ├── remote/            # Akses Firestore / Auth
+│   └── repository/        # Implementasi repository
+│
+├── domain/                # Logika bisnis (Pure Kotlin)
+│   ├── model/             # Model utama app (Task, User)
+│   └── repository/        # Interface repository
+│
+├── di/                    # Dependency Injection
 │   └── AppModule.kt
 │
-├── domain/
-│   ├── model/
-│   └── repository/
-│
-├── ui/
-│   ├── components/
-│   ├── theme/
-│   ├── screens/
+├── ui/                    # Tampilan (Compose)
+│   ├── components/        # UI kecil & reusable
+│   ├── theme/             # Warna, Font, Theme
+│   ├── screens/           # Halaman
 │   │   ├── login/
 │   │   └── dashboard/
-│   └── navigation/
+│   └── navigation/        # NavGraph
 │
-└── util/
+└── util/                  # Helper (Result, Formatter)
 ```
 
 ---
 
-## ⚡ Cara Setup (Getting Started)
+## ⚡ Setup Project (LANGKAH DEMI LANGKAH)
 
-### 1. Clone Repository
+### 1️⃣ Install Tools (WAJIB)
+
+* **Android Studio Hedgehog / Iguana**
+* **JDK 17 atau 21**
+* **Git**
+
+Cek instalasi Git:
+
+```bash
+git --version
+```
+
+---
+
+### 2️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/username-anda/lazee-tracker.git
 cd lazee-tracker
 ```
 
-### 2. Setup Firebase (WAJIB ⚠️)
+---
 
-File `google-services.json` **tidak di-commit** ke repository.
+### 3️⃣ Setup Firebase (PALING SERING SALAH)
 
-1. Minta file ke Project Manager atau Firebase Console
-2. Letakkan di:
+❗ File `google-services.json` **TIDAK ADA** di GitHub
+
+Langkah:
+
+1. Buka Firebase Console
+2. Pilih project Lazee Tracker
+3. Download `google-services.json`
+4. Simpan ke:
 
 ```text
 lazee-tracker/app/google-services.json
 ```
 
-### 3. Generate SHA-1
+---
 
-1. Android Studio → Gradle
+### 4️⃣ Generate SHA-1 (UNTUK LOGIN GOOGLE)
+
+1. Android Studio → **Gradle**
 2. `Tasks > android > signingReport`
-3. Salin SHA-1 `debug`
-4. Daftarkan ke Firebase
-
-### 4. Sync & Run
-
-* Gunakan JDK 17+
-* Sync Gradle
-* Pilih device
-* Run ▶
+3. Double click `signingReport`
+4. Cari **SHA-1 (debug)**
+5. Daftarkan ke Firebase Console
 
 ---
 
-## 🤝 Workflow Pengerjaan (Git Flow)
+### 5️⃣ Sync & Run
 
-1. Branch `main` dilindungi
-2. Gunakan Issues
-3. Branch naming:
+* File → Sync Gradle
+* Pilih emulator / HP
+* Klik ▶ Run
 
-* `feat/nama-fitur`
-* `fix/nama-bug`
-* `ui/nama-ui`
-* `chore/nama-task`
+---
+
+## 🤝 Cara Kerja Tim (WAJIB IKUT)
+
+### Aturan Utama
+
+* ❌ Dilarang commit ke `main`
+* ✅ Semua kerja via branch
+
+### Ambil Tugas
+
+1. Buka tab **Issues**
+2. Pilih tugas
+3. Assign ke diri sendiri
+
+### Buat Branch
 
 ```bash
-git checkout -b feat/dashboard-ui
+git checkout -b feat/login-ui
 ```
 
-4. Commit Message
+### Commit
 
-* `feat:`
-* `fix:`
-* `ui:`
-* `refactor:`
+```bash
+git add .
+git commit -m "feat: add login screen UI"
+```
 
-5. Pull Request ke `main`
+### Push & Pull Request
+
+```bash
+git push origin feat/login-ui
+```
+
+Buat Pull Request ke `main`
 
 ---
 
-## 📐 Coding Guidelines
+## 🧼 Aturan Coding (Untuk Pemula)
 
 ### UI (Compose)
 
-* Material3
-* Gunakan MaterialTheme
-* Hindari hardcode
-* Reusable components
+✅ Pisahkan UI besar jadi component kecil
+❌ Jangan hardcode warna / ukuran
 
 ### ViewModel
 
-* Gunakan StateFlow
-* viewModelScope
-* Tanpa android.*
+* Gunakan `StateFlow`
+* Gunakan `viewModelScope`
+* Tidak boleh ada kode UI
 
-### Resource Naming
+### Penamaan
 
-* Icon: `ic_nama_icon.xml`
-* String: `label_login_button`
+* File: `DashboardViewModel.kt`
+* Icon: `ic_add_task.xml`
+* String: `label_add_task`
 
 ---
 
-## 🆘 Troubleshooting
+## 🆘 Error Umum & Solusi
 
-**google-services.json missing** → cek folder `app/`
+❓ **Build error**
+➡ Cek JDK
 
-**Google Sign-In error** → cek SHA-1
+❓ **Login Google gagal**
+➡ SHA-1 belum didaftarkan
 
-**Gradle error** → cek JDK
+❓ **App crash**
+➡ Baca Logcat (MERAH)
+
+---
+
+## 📌 Catatan Penting
+
+> Lebih baik **kode sederhana tapi rapi** daripada kode kompleks tapi berantakan.
 
 ---
 
