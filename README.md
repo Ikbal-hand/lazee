@@ -194,8 +194,9 @@ util/
 ---
 
 text
+
+````text
 com.lazee.tracker
-│
 ├── data/                  # Mengambil & menyimpan data
 │   ├── model/             # Model dari Firebase (DTO)
 │   ├── remote/            # Akses Firestore / Auth
@@ -208,7 +209,7 @@ com.lazee.tracker
 ├── di/                    # Dependency Injection
 │   └── AppModule.kt
 │
-├── ui/                    # Tampilan (Compose)
+├── ui/                    # Tampilan (Jetpack Compose)
 │   ├── components/        # UI kecil & reusable
 │   ├── theme/             # Warna, Font, Theme
 │   ├── screens/           # Halaman
@@ -217,7 +218,7 @@ com.lazee.tracker
 │   └── navigation/        # NavGraph
 │
 └── util/                  # Helper (Result, Formatter)
-
+```)
 ````
 
 ---
@@ -226,14 +227,15 @@ com.lazee.tracker
 
 ### 1️⃣ Install Tools (WAJIB)
 
-- **Android Studio Hedgehog / Iguana**
-- **JDK 17 atau 21**
-- **Git**
+* **Android Studio Hedgehog / Iguana**
+* **JDK 17 atau 21**
+* **Git**
 
 Cek instalasi Git:
+
 ```bash
 git --version
-````
+```
 
 ---
 
